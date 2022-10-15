@@ -7,9 +7,9 @@ type Quest struct {
   Title string `json:"title"`
   Description string `json:"description"`
   Reward int `json:"reward"`
+  CategoryID uint `json:"category_id"`
   CreatedAt time.Time `json:"created_at"`
   UpdatedAt time.Time `json:"updated_at"`
-
 }
 
 func NewQuest(title string, description string, reward int) (quest *Quest, err error){
