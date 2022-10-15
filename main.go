@@ -1,10 +1,12 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"os"
 	"time"
 
+	"github.com/joho/godotenv"
 	"github.com/tamerlang/go-quest-demo/controllers"
 	"github.com/tamerlang/go-quest-demo/models"
 )
@@ -19,6 +21,12 @@ const (
 )
 
 func main() {
+  err := godotenv.Load()
+
+  if err != nil {
+    log.Fatal("Error loading .env file")
+  }
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
@@ -38,8 +46,8 @@ func main() {
 
   models.ConnectDatabase()
 
-	err := server.ListenAndServe()
+	err = server.ListenAndServe()
 	if err != nil {
-		// logger.Log("ERR ListenAndServe:", err)
+		log.Fatal("ERR ListenAndServe:", err)
 	}
 }
