@@ -13,7 +13,6 @@ import (
 
 const (
 	defaultPort = "8008"
-
 	idleTimeout       = 30 * time.Second
 	writeTimeout      = 180 * time.Second
 	readHeaderTimeout = 10 * time.Second
@@ -22,12 +21,9 @@ const (
 
 func main() {
   err := godotenv.Load()
+  check(err)
 
-  if err != nil {
-    log.Fatal("Error loading .env file")
-  }
-
-	port := os.Getenv("PORT")
+	port := os.Getenv("PORT") 
 	if port == "" {
 		port = defaultPort
 	}
@@ -47,7 +43,12 @@ func main() {
   models.ConnectDatabase()
 
 	err = server.ListenAndServe()
-	if err != nil {
-		log.Fatal("ERR ListenAndServe:", err)
-	}
+  check(err)
 }
+
+func check(e error){
+  if e != nil {
+    log.Fatal(e)
+  }
+}
+
